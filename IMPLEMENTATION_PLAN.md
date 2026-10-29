@@ -1,0 +1,27 @@
+# QUANTFORGE Research Studio implementation
+
+Deliver a local, persistent research application alongside the existing simulator and market scan. Preserve the active Twelve Data queue and private credential. No brokerage integration, purchases, account changes or fabricated performance.
+
+## Build sequence and acceptance criteria
+
+1. **Experiment and data records.** SQLite-backed saved configurations, immutable dataset manifests, input/source hashes, queue and terminal statuses. Capture the current cache without disrupting downloads. Accept wide adjusted daily-price CSV, optional historical membership and security/cost metadata. Label provider present-day-universe bias and missing provenance explicitly. Never infer historical constituents or delisting returns.
+2. **Validated chronology.** Explicit start/end dates; single dated split or rolling/expanding walk-forward. Separate training, validation and non-overlapping test dates, session gaps, minimum observations and at least one complete fold. Show exact date schedule before queuing. Daily or weekly feature observations, with daily execution accounting. Reject impossible schedules early.
+3. **Training-only model pipeline.** Per-fold eligibility and liquidity selection, known-at-date membership/metadata, duplicate-series/security-ID checks, bounded candidate universe, raw and market/sector-ETF-residual correlations, PCA, and existing multivariate Johansen fitting. Training fixes factors, universe and baskets; validation selects only a declared small rule grid and strategy family. Test outcomes never select that fold's model.
+4. **Portfolio accounting.** Delayed close execution, actual turnover, commission/half-spread/slippage plus an explicit training-volume impact approximation, cash/funding/borrow assumptions, short-availability flags and portfolio-wide gross/net/name caps. Mark missing held prices as an invalid evaluation rather than dropping failed securities or pretending an exit. Close positions at fold boundaries; earn modeled cash returns in embargo gaps. Predeclared cost stress, SPY and equal-weight comparisons, trade ledger, exposure/risk metrics and block-bootstrap uncertainty.
+5. **Application workflow.** Research home, Data library, Experiment builder with fold preview, persistent run queue/history, completed reports with curves/folds/quality/candidates/trades, exports, explanatory labels and shared resource monitoring/cancel. Existing market collector and Monte Carlo tools remain reachable.
+6. **Forward paper portfolio.** Freeze a completed experiment's latest fitted long-only allocation, record creation time, and accept only complete observations strictly after the creation date from a selected dataset. Idempotent updates and immutable daily ledger; missing data means wait, never a fabricated quote. Local simulation only, with modeled costs and no broker connection.
+7. **Verification and delivery.** Deterministic tests for chronology, train/test isolation, factor removal, missing data, security identity/membership, accounting, risk caps, costs, queue/restart and paper idempotence. Run real cached-data experiment and cancellation test where supported; verify desktop/mobile UI and exports. Document measurements, limitations and setup, update source archive and scan it for the real credential.
+
+## Defaults
+
+Use current ten-year cached data, three years of rolling training, one year validation, one year test, annual steps and 20-session boundary gaps. Compare daily and weekly feature frequencies through separate saved experiments; do not silently choose frequency after seeing tests. Start with up to 300 training-liquid assets per fold and 1,000 sampled 3/5/8-leg baskets per fold for an interactive run; heavy presets raise these bounded ceilings. Keep 24 GiB OS reserve, required CPU sensor, 85°C stop, time/RAM watchdog and process-tree cancellation. Existing 100,000-basket full-market scan remains armed after collection.
+
+## Honest scope
+
+Present-day provider data cannot establish a survivorship-free historical backtest. Optional user-supplied historical data/membership can improve coverage but are not independently certified. Corporate-action-adjusted close execution is an approximation, not a historical fill reconstruction. Borrow, spread, funding and impact settings are assumptions unless provided as dated metadata. No tax, options, intraday order-book, fundamental point-in-time dataset or guaranteed alpha claims. Already-inspected historical dates remain development data; forward paper history begins only after creation.
+
+## Delivered status · 2026-10-29
+
+All seven application stages are implemented. The stock-only extension converts preserved inputs to immutable Zstandard Parquet with DuckDB access, transactional manifests, bounded exports and a Price warehouse view. Persistent collection remains in progress; the larger research experiment waits for its completed scope and published conversion. This is an ongoing external quota-limited download, not a completed full-market dataset.
+
+Verification: 63 tests passed / one optional CUDA test skipped; frontend production build and Python lint passed. A real stock-only six-fold pilot completed through the persistent API queue, and the forward paper refresh correctly recorded no eligible post-creation prices. See STUDIO.md, WAREHOUSE.md and the validation JSON files for measurements and remaining data/model limitations.

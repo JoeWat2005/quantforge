@@ -1,0 +1,7 @@
+@import "tailwindcss";
+@plugin "daisyui" { themes: dark --default; }
+@theme { --font-sans: "Segoe UI", system-ui, sans-serif; --font-mono: "Cascadia Code", Consolas, monospace; }
+body { margin: 0; }
+button, input, select, textarea { font: inherit; }
+svg text { fill: currentColor; }
+@media (prefers-reduced-motion: reduce) { * { animation-duration: 0.01ms !important; } }
