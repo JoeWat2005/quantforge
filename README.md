@@ -1,3 +1,16 @@
+> [!WARNING]
+> **Deprecated: no longer maintained.** This repository is a snapshot of QuantForge from 29 Oct 2026. On 1 Nov 2026
+> QuantForge was merged into my University of Birmingham final-year project, *Adversarial Grammatical Evolution for
+> Robust Quantitative Trading Strategies*, on the School of Computer Science GitLab:
+> <https://git.cs.bham.ac.uk/projects-2026-27/jxw1627> (University login required).
+>
+> **How it was merged.** QuantForge's working folder, which by then included changes made after this snapshot, was
+> copied into the project as its `quantforge/` directory. Its price warehouse was switched to relative paths, and the
+> platform became the project's statistical layer. Development continued there, not here. The Forge GPU strategy
+> search and its signal-free null panels were built inside it, and on 5 Nov 2026 the website and API were renamed
+> **Crucible**. The directory and the Python package keep the QuantForge names because the data and environment depend
+> on them. The project's `docs/history/README.md` describes how its earlier projects were consolidated.
+
 # QUANTFORGE Research Studio
 
 A local quantitative research app for testing investment ideas against historical data and explicit assumptions. React dashboard, FastAPI backend, Parquet prices, multicore statistical research, and a separate C++20/OpenMP portfolio Monte Carlo simulator with optional CUDA source.
